@@ -77,6 +77,12 @@
   margin: 20px auto;
 }
 
+.inline-container {
+  display: flex;
+  align-items: center; /* 수직 정렬 */
+  gap: 10px; /* 요소 간 간격 */
+}
+
 .review-form textarea {
   width: 100%;
   padding: 20px;
