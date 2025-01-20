@@ -28,6 +28,9 @@ const CompPrdList = () => {
       try {
         const response = await axios.get(`${host}/product/list`);
         const products = response.data;
+
+        products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        
         setPrdList(products);
 
         const uniqueDepth1 = [...new Set(products.map((prd) => prd.depth1))];
@@ -140,8 +143,8 @@ const CompPrdList = () => {
   const totalPages = Math.ceil(filteredPrdList.length / itemsPerPage);
   const currentProducts = filteredPrdList.slice(
     (page - 1) * itemsPerPage,
-    page * itemsPerPage)
-    .reverse();
+    page * itemsPerPage
+  );
 
   const handlePageChange = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
