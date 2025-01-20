@@ -191,15 +191,16 @@ const CompPrdDetailReview = () => {
   // 리뷰가 없을 때 메시지 표시
   if (reviews.length === 0) {
     return <div className="inline-container">
+      <div>
   <button
       onClick={() => setIsReviewing((prev) => !prev)}
       className="review-reg-btn2"
-    >
+      >
       {isReviewing ? "작성 취소" : "리뷰 작성"}
     </button>
     <p className="child"> 리뷰가 없습니다. 첫 번째 리뷰를 작성해보세요! </p>
 
-    <div>
+      </div>
 
     {isReviewing && (
       <div className="review-form">
@@ -217,7 +218,6 @@ const CompPrdDetailReview = () => {
     )}
     </div>
     {/* </div> */}
-  </div>;
 }
 
   // 리뷰 데이터를 렌더링
