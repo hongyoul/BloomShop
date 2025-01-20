@@ -140,8 +140,8 @@ const CompPrdList = () => {
   const totalPages = Math.ceil(filteredPrdList.length / itemsPerPage);
   const currentProducts = filteredPrdList.slice(
     (page - 1) * itemsPerPage,
-    page * itemsPerPage
-  );
+    page * itemsPerPage)
+    .reverse();
 
   const handlePageChange = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
