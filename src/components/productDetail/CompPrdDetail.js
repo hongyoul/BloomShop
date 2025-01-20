@@ -104,19 +104,15 @@ const CompPrdDetail = () => {
         return;
       }
 
-      const response = await fetch(`${host}/product/remove?no=${pdNo}`, {
-        method: "DELETE",
+      const response = await axios.delete(`${host}/product/remove?no=${pdNo}`, {
         headers: {
           Authorization: token,
           "Content-Type": "application/json",
         },
       });
-      if (response.ok) {
-        // 삭제된 상품을 상태에서 제거
-        setPrdList((prevItems) =>
-          prevItems.filter((item) => item.pdNo !== pdNo)
-        );
+      if (response.status === 204) {
         alert("상품이 삭제되었습니다.");
+        navigate("/product/list");
       } else {
         alert("상품 삭제 실패");
         console.error("상품 삭제 실패:", response.status);
@@ -219,7 +215,7 @@ const CompPrdDetail = () => {
                 <button onClick={handleEdit} className="edit-button">
                   수정
                 </button>
-                <button onClick={() => handleDeleteProduct(product.pdNo)}  className="delete-button">
+                <button onClick={() => handleDelete(product.pdNo)}  className="delete-button">
                   삭제
                 </button>
               </div>
