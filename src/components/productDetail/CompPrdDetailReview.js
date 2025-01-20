@@ -190,8 +190,34 @@ const CompPrdDetailReview = () => {
 
   // 리뷰가 없을 때 메시지 표시
   if (reviews.length === 0) {
-    return <p>리뷰가 없습니다. 첫 번째 리뷰를 작성해보세요!</p>;
-  }
+    return <div>
+    {/* <div className="child"> */}
+    <p className="child"> 리뷰가 없습니다. 첫 번째 리뷰를 작성해보세요! </p>
+    {/* </div> */}
+    {/* <div className="child"> */}
+  <button
+      onClick={() => setIsReviewing((prev) => !prev)}
+      className="review-reg-btn2"
+    >
+      {isReviewing ? "작성 취소" : "리뷰 작성"}
+    </button>
+    {isReviewing && (
+      <div className="review-form">
+        <textarea
+          placeholder="리뷰를 작성해주세요."
+          value={reviewContent}
+          onChange={(e) => setReviewContent(e.target.value)}
+        ></textarea>
+        <div className="review-buttons">
+          <button onClick={handleAddReview} className="review-reg-btn2">
+            등록
+          </button>
+        </div>
+      </div>
+    )}
+    {/* </div> */}
+  </div>;
+}
 
   // 리뷰 데이터를 렌더링
   return (
@@ -272,7 +298,7 @@ const CompPrdDetailReview = () => {
                       수정
                     </button>
                     <button
-                      onClick={() => handleDeleteReview(review.reNo)}
+                      onClick={() => handleDeleteReview(review.reNo, userId)}
                       className="review-delete-btn"
                     >
                       삭제
