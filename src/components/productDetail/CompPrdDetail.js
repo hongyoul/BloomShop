@@ -96,9 +96,7 @@ const CompPrdDetail = () => {
   };
 
   // 상품 삭제 핸들러
-  const handleDelete = async () => {
-    if (!window.confirm("정말로 삭제하시겠습니까?")) return;
-
+  const handleDelete = async (pdNo) => {
     try {
       const token = localStorage.getItem("token"); // 토큰 가져오기
       if (!token) {
@@ -106,22 +104,27 @@ const CompPrdDetail = () => {
         return;
       }
 
-      // DELETE 요청 (Query Parameter 사용)
-      await axios.delete(`${host}/product/remove`, {
+      const response = await fetch(`${host}/product/remove?no=${pdNo}`, {
+        method: "DELETE",
         headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: {
-          no: pdNo, // Query Parameter에 상품 번호 전달
+          Authorization: token,
+          "Content-Type": "application/json",
         },
       });
-
-      alert("상품이 삭제되었습니다.");
-      navigate("/product/list"); // 상품 목록 페이지로 이동
+      if (response.ok) {
+        // 삭제된 상품을 상태에서 제거
+        setPrdList((prevItems) =>
+          prevItems.filter((item) => item.pdNo !== pdNo)
+        );
+        alert("상품이 삭제되었습니다.");
+      } else {
+        alert("상품 삭제 실패");
+        console.error("상품 삭제 실패:", response.status);
+      }
     } catch (error) {
-      console.error("상품 삭제 실패:", error);
-      alert("상품 삭제에 실패했습니다.");
+      console.error("상품 삭제 중 오류 발생:", error);
     }
+  };
   };
 
   // 상품 수정 핸들러
