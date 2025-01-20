@@ -125,7 +125,6 @@ const CompPrdDetail = () => {
       console.error("상품 삭제 중 오류 발생:", error);
     }
   };
-  };
 
   // 상품 수정 핸들러
   const handleEdit = () => {
@@ -220,7 +219,7 @@ const CompPrdDetail = () => {
                 <button onClick={handleEdit} className="edit-button">
                   수정
                 </button>
-                <button onClick={handleDelete} className="delete-button">
+                <button onClick={() => handleDeleteProduct(product.pdNo)}  className="delete-button">
                   삭제
                 </button>
               </div>
