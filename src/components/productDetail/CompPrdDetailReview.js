@@ -199,8 +199,8 @@ const CompPrdDetailReview = () => {
     </button>
     <p className="child"> 리뷰가 없습니다. 첫 번째 리뷰를 작성해보세요! </p>
 
-    <br></br>
-    
+    <div>
+
     {isReviewing && (
       <div className="review-form">
         <textarea
@@ -215,6 +215,7 @@ const CompPrdDetailReview = () => {
         </div>
       </div>
     )}
+    </div>
     {/* </div> */}
   </div>;
 }
