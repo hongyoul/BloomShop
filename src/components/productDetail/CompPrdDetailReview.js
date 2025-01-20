@@ -190,8 +190,8 @@ const CompPrdDetailReview = () => {
 
   // 리뷰가 없을 때 메시지 표시
   if (reviews.length === 0) {
-    return <div className="inline-container">
-      <div>
+    return <div>
+      <div className="inline-container">
   <button
       onClick={() => setIsReviewing((prev) => !prev)}
       className="review-reg-btn2"
