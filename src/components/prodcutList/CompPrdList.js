@@ -28,9 +28,7 @@ const CompPrdList = () => {
       try {
         const response = await axios.get(`${host}/product/list`);
         const products = response.data;
-
-        products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        
+        products.sort((a, b) => b.pdNo - a.pdNo);
         setPrdList(products);
 
         const uniqueDepth1 = [...new Set(products.map((prd) => prd.depth1))];
