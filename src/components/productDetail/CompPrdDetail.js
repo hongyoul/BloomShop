@@ -96,7 +96,9 @@ const CompPrdDetail = () => {
   };
 
   // 상품 삭제 핸들러
-  const handleDelete = async (pdNo) => {
+  const handleDelete = async () => {
+    if (!window.confirm("정말로 삭제하시겠습니까?")) return;
+
     try {
       const token = localStorage.getItem("token"); // 토큰 가져오기
       if (!token) {
@@ -104,21 +106,21 @@ const CompPrdDetail = () => {
         return;
       }
 
-      const response = await axios.delete(`${host}/product/remove?no=${pdNo}`, {
+      // DELETE 요청 (Query Parameter 사용)
+      await axios.delete(`${host}/product/remove`, {
         headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          no: pdNo, // Query Parameter에 상품 번호 전달
         },
       });
-      if (response.status === 204) {
-        alert("상품이 삭제되었습니다.");
-        navigate("/product/list");
-      } else {
-        alert("상품 삭제 실패");
-        console.error("상품 삭제 실패:", response.status);
-      }
+
+      alert("상품이 삭제되었습니다.");
+      navigate("/product/list"); // 상품 목록 페이지로 이동
     } catch (error) {
-      console.error("상품 삭제 중 오류 발생:", error);
+      console.error("상품 삭제 실패:", error);
+      alert("상품 삭제에 실패했습니다.");
     }
   };
 
@@ -215,7 +217,7 @@ const CompPrdDetail = () => {
                 <button onClick={handleEdit} className="edit-button">
                   수정
                 </button>
-                <button onClick={() => handleDelete(product.pdNo)}  className="delete-button">
+                <button onClick={handleDelete}  className="delete-button">
                   삭제
                 </button>
               </div>
