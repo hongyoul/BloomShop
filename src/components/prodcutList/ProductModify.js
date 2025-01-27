@@ -263,11 +263,11 @@ function ProductModify() {
               required
             />
           </div>
-        </div>
 
         <button type="submit" className="pd-mod-btn">
           수정하기
         </button>
+        </div>
       </form>
     </main>
   );
